@@ -1,0 +1,51 @@
+---
+title: "Getting and Cleaning Data"
+author: "Nicholas Jin-Komarov"
+date: "September 27, 2018"
+output: html_document
+---
+```{r}
+library(dplyr)
+```
+
+```{r}
+#Motor Trend Car Road Tests dataset in .csv format is read into a data frame
+#Saved as 'mtcars'
+
+mtcars <- read.csv("C:/Users/Nick/Desktop/DATA101/Project1/mtcars.csv")
+```
+
+```{r}
+#Selects columns X(name), cyl(cylinders), mpg(miles per gallon), and am(transmission)
+#Saved as 'carsmpg'
+
+carsmpg <- select(mtcars, X, cyl, mpg, am)
+carsmpg
+```
+
+```{r}
+#Filters by cars with automatic transmission only
+#Automatic: am = 1
+#Manual: am = 0
+#Saved as 'amcarsmpg'
+
+amcarsmpg <- filter(carsmpg, am == 1)
+amcarsmpg
+```
+
+```{r}
+#Automatic transmission cars are group by cyl(number of cylinders)
+#For each group, average mpg is calculated
+
+amcarsmpg %>%
+  group_by(cyl) %>%
+  summarise(avg_mpg = mean(mpg))
+```
+
+
+
+
+
+
+
+
